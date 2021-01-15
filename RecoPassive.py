@@ -33,6 +33,7 @@ def whois(domain, sys_args, len_sys_args, domain_split):
         print("Whois Done !")
         chooseOptions(domain, sys_args, len_sys_args, domain_split)
     else:
+        print("Nslookup Done !")
         print(f"{bcolors.Red}Operation End")
 
 
@@ -43,6 +44,7 @@ def dig(domain, sys_args, len_sys_args, domain_split):
         print("Dig Done !")
         chooseOptions(domain, sys_args, len_sys_args, domain_split)
     else:
+        print("Nslookup Done !")
         print(f"{bcolors.Red}Operation End")
 
 
@@ -53,6 +55,7 @@ def host(domain, sys_args, len_sys_args, domain_split):
         print("Host Done !")
         chooseOptions(domain, sys_args, len_sys_args, domain_split)
     else:
+        print("Nslookup Done !")
         print(f"{bcolors.Red}Operation End")
 
 
@@ -64,6 +67,7 @@ def the_harvester(domain, sys_args, len_sys_args, domain_split):
         print("TheHarvester Done !")
         chooseOptions(domain, sys_args, len_sys_args, domain_split)
     else:
+        print("Nslookup Done !")
         print(f"{bcolors.Red}Operation End")
 
 
@@ -74,6 +78,7 @@ def nslookup(domain, sys_args, len_sys_args, domain_split):
         print("Nslookup Done !")
         chooseOptions(domain, sys_args, len_sys_args, domain_split)
     else:
+        print("Nslookup Done !")
         print(f"{bcolors.Red}Operation End")
 
 
@@ -85,47 +90,13 @@ def dnsenum(domain, sys_args, len_sys_args, domain_split):
         print("Dnsenum Done !")
         chooseOptions(domain, sys_args, len_sys_args, domain_split)
     else:
+        print("Nslookup Done !")
         print(f"{bcolors.Red}Operation End")
 
 
 def chooseOptions(domain, sys_args, len_sys_args, domain_split):
     try:
-        if sys_args[0] == "-h" or sys_args[0] == "--help":
-            print(f"""{bcolors.LightBlue}
-        *********************************
-        *                               *
-        *     RecoPassive 1.0           *
-        *     Coded by Billon Yohan     *
-        *                               *
-        *********************************
-                """)
-            print(f"{bcolors.Blue}		*****", f"{bcolors.White}*****", f"{bcolors.Red}*****")
-            print(f"{bcolors.Blue}		*****", f"{bcolors.White}*****", f"{bcolors.Red}*****")
-            print(f"{bcolors.Blue}		*****", f"{bcolors.White}*****", f"{bcolors.Red}*****")
-            print(f"{bcolors.Blue}		*****", f"{bcolors.White}*****", f"{bcolors.Red}*****")
-            print(f"{bcolors.Blue}		*****", f"{bcolors.White}*****", f"{bcolors.Red}*****")
-            print(f"{bcolors.Blue}		*****", f"{bcolors.White}*****", f"{bcolors.Red}*****")
-            print(f"{bcolors.Blue}		*****", f"{bcolors.White}*****", f"{bcolors.Red}*****\n{bcolors.ENDC}")
-            print(f"""{bcolors.LightBlue}	RecoPassive is used to gather data.
-
-
-        Usage : RecoPassive.py [Args]
-
-        If you want to launch several applications add up the number of commands :
-
-        1   Whois
-        2   Dig
-        3   Host
-        4   TheHarvester
-        5   Nslookup
-        6   Dnsenum
-
-        example : Dig & Nslookup = RecoPassive.py 2 5
-              TheHarvester & Whois = RecoPassive.py 1 4
-
-
-                """)
-        elif len_sys_args >= 1:
+        if len_sys_args >= 1:
             for i in range(len_sys_args):
                 if "1" in sys_args:
                     sys_args.remove("1")
@@ -175,7 +146,46 @@ def chooseOptions(domain, sys_args, len_sys_args, domain_split):
 
 
 if __name__ == '__main__':
-    domain = input(f"{bcolors.LightBlue}\nplease enter a domain name (example: google.com) : ")
+    sys_args = sys.argv
+    sys_args = sys_args[1:]
+    len_sys_args = len(sys_args)
+    if sys_args[0] == "-h" or sys_args[0] == "--help":
+        print(f"""{bcolors.LightBlue}
+    *********************************
+    *                               *
+    *     RecoPassive 1.0           *
+    *     Coded by Billon Yohan     *
+    *                               *
+    *********************************
+            """)
+        print(f"{bcolors.Blue}      *********", f"{bcolors.White}*********", f"{bcolors.Red}*********")
+        print(f"{bcolors.Blue}      *********", f"{bcolors.White}*********", f"{bcolors.Red}*********")
+        print(f"{bcolors.Blue}      *********", f"{bcolors.White}*********", f"{bcolors.Red}*********")
+        print(f"{bcolors.Blue}      *********", f"{bcolors.White}*********", f"{bcolors.Red}*********")
+        print(f"{bcolors.Blue}      *********", f"{bcolors.White}*********", f"{bcolors.Red}*********")
+        print(f"{bcolors.Blue}      *********", f"{bcolors.White}*********", f"{bcolors.Red}*********")
+        print(f"{bcolors.Blue}      *********", f"{bcolors.White}*********", f"{bcolors.Red}*********\n{bcolors.ENDC}")
+        print(f"""{bcolors.LightBlue}   RecoPassive is used to gather data.
+
+
+    Usage : RecoPassive.py [Args]
+
+    If you want to launch several applications add up the number of commands :
+
+    1   Whois
+    2   Dig
+    3   Host
+    4   TheHarvester
+    5   Nslookup
+    6   Dnsenum
+
+    example : Dig & Nslookup = RecoPassive.py 2 5
+              TheHarvester & Whois = RecoPassive.py 1 4
+
+
+            """)
+        sys.exit()
+    domain = input(f"{bcolors.LightBlue}\nPlease enter a domain name (example: google.com) : ")
     domain_split = str(domain.split('.')[0])
     current_directory = os.getcwd()
     directory_result = current_directory + '/Result'
@@ -193,8 +203,5 @@ if __name__ == '__main__':
         os.mkdir(current_directory + "/Result")
         os.mkdir(directory_domain)
         print(f"{bcolors.LightGreen}\nWe have just created a 'Result' folder in which you will find the result ( Path = "+current_directory+"/Result )\n")
-    sys_args = sys.argv
-    sys_args = sys_args[1:]
-    len_sys_args = len(sys_args)
     chooseOptions(domain, sys_args, len_sys_args, domain_split)
 
