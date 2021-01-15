@@ -26,58 +26,63 @@ class bcolors:
     ENDC = '\033[0m'
 
 
-def the_harvester(domain, sys_args, len_sys_args, domain_split):
-    os.system('theHarvester '+domain+' > '+directory_domain+'/theHarvester_'+domain_split[0]+'.txt')
+def whois(domain, sys_args, len_sys_args, domain_split):
+    print("Whois in progress .....")
+    os.system('whois '+domain+' > '+directory_domain+'/whois_'+domain_split+'.txt')
     if len_sys_args >= 1:
+        print("Whois Done !")
         chooseOptions(domain, sys_args, len_sys_args, domain_split)
     else:
         print(f"{bcolors.Red}Operation End")
 
 
 def dig(domain, sys_args, len_sys_args, domain_split):
-    os.system('dig '+domain+' > '+directory_domain+'/dig_'+domain_split[0]+'.txt')
+    print("Dig in progress .....")
+    os.system('dig '+domain+' any @8.8.8.8 > '+directory_domain+'/dig_'+domain_split+'.txt')
     if len_sys_args >= 1:
+        print("Dig Done !")
         chooseOptions(domain, sys_args, len_sys_args, domain_split)
     else:
         print(f"{bcolors.Red}Operation End")
 
 
 def host(domain, sys_args, len_sys_args, domain_split):
-    os.system('host '+domain+' > '+directory_domain+'/host_'+domain_split[0]+'.txt')
+    print("Host in progress .....")
+    os.system('host '+domain+' > '+directory_domain+'/host_'+domain_split+'.txt')
     if len_sys_args >= 1:
+        print("Host Done !")
         chooseOptions(domain, sys_args, len_sys_args, domain_split)
     else:
         print(f"{bcolors.Red}Operation End")
 
 
-def whois(domain, sys_args, len_sys_args, domain_split):
-    os.system('whois '+domain+' > '+directory_domain+'/whois_'+domain_split[0]+'.txt')
+def the_harvester(domain, sys_args, len_sys_args, domain_split):
+    print("TheHarvester in progress .....")
+    print("TheHarvester take some time .....")
+    os.system('theHarvester -d '+domain+' -b all > '+directory_domain+'/theHarvester_'+domain_split+'.txt')
     if len_sys_args >= 1:
+        print("TheHarvester Done !")
         chooseOptions(domain, sys_args, len_sys_args, domain_split)
     else:
         print(f"{bcolors.Red}Operation End")
 
 
 def nslookup(domain, sys_args, len_sys_args, domain_split):
-    os.system('nslookup '+domain+' > '+directory_domain+'/nslookup_'+domain_split[0]+'.txt')
+    print("Nslookup in progress .....")
+    os.system('nslookup '+domain+' > '+directory_domain+'/nslookup_'+domain_split+'.txt')
     if len_sys_args >= 1:
+        print("Nslookup Done !")
         chooseOptions(domain, sys_args, len_sys_args, domain_split)
     else:
         print(f"{bcolors.Red}Operation End")
 
 
-def recon_ng(domain, sys_args, len_sys_args, domain_split):
-    file = open(directory_domain+'/reconNG-'+domain_split, "w")
-    command_recon = ('workspaces create '+domain_split[0]+'\n', 'workspaces load '+domain_split[0]+'\n', 'db insert domains\n', domain+'\n',
-                    '\n', 'modules load whois_pocs\n', 'run\n', 'modules load google_site_web\n', 'run\n', 'modules load bing_domain_web\n',
-                    'run\n', 'modules load certificate_tr\n', 'run\n', 'modules load shodan_ip\n', 'run\n', 'modules load resolve\n', 'run\n',
-                    'modules load reporting/html\n', 'options set CREATOR Yohan Billon\n', 'options set CUSTOMER '+domain_split[0]+'\n',
-                    'options set FILE domain /root/rapport-'+domain_split[0]+'.html\n', 'run\n')
-    file.writelines(command_recon)
-    file.close()
-    os.system('recon-ng -r '+directory_domain+'/reconNG-'+domain_split+' > '+directory_domain+'/reconNG_'+domain_split[0]+'.txt')
-    os.remove(file)
+def dnsenum(domain, sys_args, len_sys_args, domain_split):
+    print("Dnsenum in progress .....")
+    os.system('dnsenum --noreverse '+domain+' > '+directory_domain+'/dnsenum_'+domain_split+'.txt')
+    os.system('mv '+current_directory+'/'+domain+'_ips.txt '+directory_domain+'/'+domain_split+'_ips.txt')
     if len_sys_args >= 1:
+        print("Dnsenum Done !")
         chooseOptions(domain, sys_args, len_sys_args, domain_split)
     else:
         print(f"{bcolors.Red}Operation End")
@@ -108,12 +113,12 @@ def chooseOptions(domain, sys_args, len_sys_args, domain_split):
 
         If you want to launch several applications add up the number of commands :
 
-        1   TheHarvester
+        1   Whois
         2   Dig
         3   Host
-        4   Whois
+        4   TheHarvester
         5   Nslookup
-        6   Recon-ng
+        6   Dnsenum
 
         example : Dig & Nslookup = RecoPassive.py 2 5
               TheHarvester & Whois = RecoPassive.py 1 4
@@ -125,12 +130,12 @@ def chooseOptions(domain, sys_args, len_sys_args, domain_split):
                 if "1" in sys_args:
                     sys_args.remove("1")
                     len_sys_args -= 1
-                    host(domain, sys_args, len_sys_args, domain_split)
+                    whois(domain, sys_args, len_sys_args, domain_split)
 
                 elif "2" in sys_args:
                     sys_args.remove("2")
                     len_sys_args -= 1
-                    host(domain, sys_args, len_sys_args, domain_split)
+                    dig(domain, sys_args, len_sys_args, domain_split)
 
                 elif "3" in sys_args:
                     sys_args.remove("3")
@@ -140,7 +145,7 @@ def chooseOptions(domain, sys_args, len_sys_args, domain_split):
                 elif "4" in sys_args:
                     sys_args.remove("4")
                     len_sys_args -= 1
-                    whois(domain, sys_args, len_sys_args, domain_split)
+                    the_harvester(domain, sys_args, len_sys_args, domain_split)
 
                 elif "5" in sys_args:
                     sys_args.remove("5")
@@ -150,19 +155,19 @@ def chooseOptions(domain, sys_args, len_sys_args, domain_split):
                 elif "6" in sys_args:
                     sys_args.remove("6")
                     len_sys_args -= 1
-                    recon_ng(domain, sys_args, len_sys_args, domain_split)
+                    dnsenum(domain, sys_args, len_sys_args, domain_split)
 
     except:
         print(f"""{bcolors.LightBlue}\nUse the following arguments (If you want to launch several applications add up the number of commands ):
 
     example : Dig & Nslookup = RecoPassive.py 2 5
 
-    1   TheHarvester
+    1   Whois
     2   Dig
     3   Host
-    4   Whois
+    4   TheHarvester
     5   Nslookup
-    6   Recon-ng
+    6   Dnsenum
 
             """)
         print(f"{bcolors.White}{bcolors.BackgroundBlack}{bcolors.Bold}Use the option -h or --help for more information")
@@ -170,7 +175,7 @@ def chooseOptions(domain, sys_args, len_sys_args, domain_split):
 
 
 if __name__ == '__main__':
-    domain = input(f"{bcolors.LightBlue}please enter a domain name (example: google.com) : ")
+    domain = input(f"{bcolors.LightBlue}\nplease enter a domain name (example: google.com) : ")
     domain_split = str(domain.split('.')[0])
     current_directory = os.getcwd()
     directory_result = current_directory + '/Result'
@@ -192,3 +197,4 @@ if __name__ == '__main__':
     sys_args = sys_args[1:]
     len_sys_args = len(sys_args)
     chooseOptions(domain, sys_args, len_sys_args, domain_split)
+
