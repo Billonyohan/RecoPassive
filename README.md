@@ -41,10 +41,6 @@ $ python3 recoPassive.py
 
 ### Todos
 
- - Add all Host functions
- - Add all TheHarvester functions
- - Add all Nslookup functions
- - Add all Dnsenum functions
  - Output a file in XML
- - Write MORE Tests
+ - Write some Tests
  - Create ElectronJS application (GUI)
