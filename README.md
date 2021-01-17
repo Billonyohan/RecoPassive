@@ -41,8 +41,6 @@ $ python3 recoPassive.py
 
 ### Todos
 
- - Add all Whois functions
- - Add all Dig functions
  - Add all Host functions
  - Add all TheHarvester functions
  - Add all Nslookup functions
