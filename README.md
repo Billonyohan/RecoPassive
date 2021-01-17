@@ -5,11 +5,18 @@
 </p>
 RecoPassive is very simple to use, effective tool builded to be used by pentester or red team for passive recognition.
 The tool gathers many data like emails, names, subdomains, IPs, URLs, registrar ... from other tools like :
+
+
   - Whois
+
   - Dig
+  
   - Host
+  
   - TheHarvester
+  
   - Nslookup
+  
   - Dnsenum
 
 
