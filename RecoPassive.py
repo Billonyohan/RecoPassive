@@ -33,7 +33,7 @@ def whois(domain, sys_args, len_sys_args, domain_split):
         print("Whois Done !")
         chooseOptions(domain, sys_args, len_sys_args, domain_split)
     else:
-        print("Nslookup Done !")
+        print("Whois Done !")
         print(f"{bcolors.Red}Operation End")
 
 
@@ -44,7 +44,7 @@ def dig(domain, sys_args, len_sys_args, domain_split):
         print("Dig Done !")
         chooseOptions(domain, sys_args, len_sys_args, domain_split)
     else:
-        print("Nslookup Done !")
+        print("Dig Done !")
         print(f"{bcolors.Red}Operation End")
 
 
@@ -55,7 +55,7 @@ def host(domain, sys_args, len_sys_args, domain_split):
         print("Host Done !")
         chooseOptions(domain, sys_args, len_sys_args, domain_split)
     else:
-        print("Nslookup Done !")
+        print("Host Done !")
         print(f"{bcolors.Red}Operation End")
 
 
@@ -67,7 +67,7 @@ def the_harvester(domain, sys_args, len_sys_args, domain_split):
         print("TheHarvester Done !")
         chooseOptions(domain, sys_args, len_sys_args, domain_split)
     else:
-        print("Nslookup Done !")
+        print("TheHarvester Done !")
         print(f"{bcolors.Red}Operation End")
 
 
@@ -90,7 +90,7 @@ def dnsenum(domain, sys_args, len_sys_args, domain_split):
         print("Dnsenum Done !")
         chooseOptions(domain, sys_args, len_sys_args, domain_split)
     else:
-        print("Nslookup Done !")
+        print("Dnsenum Done !")
         print(f"{bcolors.Red}Operation End")
 
 
@@ -146,10 +146,12 @@ def chooseOptions(domain, sys_args, len_sys_args, domain_split):
 
 
 if __name__ == '__main__':
-    sys_args = sys.argv
-    sys_args = sys_args[1:]
+    sys_nbArgs = sys.argv
+    sys_args = sys_nbArgs[1:]
     len_sys_args = len(sys_args)
-    if sys_args[0] == "-h" or sys_args[0] == "--help":
+    if len(sys_nbArgs) == 1:
+        print(f"{bcolors.Blue}\nPlease add an arguments or -h for help\n")
+    elif sys_args[0] == "-h" or sys_args[0] == "--help":
         print(f"""{bcolors.LightBlue}
     *********************************
     *                               *
@@ -185,23 +187,24 @@ if __name__ == '__main__':
 
             """)
         sys.exit()
-    domain = input(f"{bcolors.LightBlue}\nPlease enter a domain name (example: google.com) : ")
-    domain_split = str(domain.split('.')[0])
-    current_directory = os.getcwd()
-    directory_result = current_directory + '/Result'
-    last_current_directory = current_directory.split("/")
-    current_directory_with_result_exist = path.exists(directory_result)
-    directory_domain = directory_result + "/" + domain_split
-    current_directory_with_domain_exist = path.exists(directory_domain)
-    if current_directory_with_result_exist is True:
-        if current_directory_with_domain_exist is True:
-            print(f"{bcolors.LightGreen}\nRemember that the results are saved in the folder ( Path = "+current_directory+"/Result )\n")
-        else:
-            os.mkdir(directory_domain)
-            print(f"{bcolors.LightGreen}\nRemember that the results are saved in the folder ( Path = "+current_directory+"/Result )\n")
     else:
-        os.mkdir(current_directory + "/Result")
-        os.mkdir(directory_domain)
-        print(f"{bcolors.LightGreen}\nWe have just created a 'Result' folder in which you will find the result ( Path = "+current_directory+"/Result )\n")
-    chooseOptions(domain, sys_args, len_sys_args, domain_split)
+        domain = input(f"{bcolors.LightBlue}\nPlease enter a domain name (example: google.com) : ")
+        domain_split = str(domain.split('.')[0])
+        current_directory = os.getcwd()
+        directory_result = current_directory + '/Result'
+        last_current_directory = current_directory.split("/")
+        current_directory_with_result_exist = path.exists(directory_result)
+        directory_domain = directory_result + "/" + domain_split
+        current_directory_with_domain_exist = path.exists(directory_domain)
+        if current_directory_with_result_exist is True:
+            if current_directory_with_domain_exist is True:
+                print(f"{bcolors.LightGreen}\nRemember that the results are saved in the folder ( Path = "+current_directory+"/Result )\n")
+            else:
+                os.mkdir(directory_domain)
+                print(f"{bcolors.LightGreen}\nRemember that the results are saved in the folder ( Path = "+current_directory+"/Result )\n")
+        else:
+            os.mkdir(current_directory + "/Result")
+            os.mkdir(directory_domain)
+            print(f"{bcolors.LightGreen}\nWe have just created a 'Result' folder in which you will find the result ( Path = "+current_directory+"/Result )\n")
+        chooseOptions(domain, sys_args, len_sys_args, domain_split)
 
