@@ -443,7 +443,7 @@ if __name__ == '__main__':
     sys_args = sys_nbArgs[1:]
     len_sys_args = len(sys_args)
     if len(sys_nbArgs) == 1:
-        print(f"{bcolors.Blue}\nPlease add an arguments or use the option -h for help\n")
+        print(f"{bcolors.Blue}\nPlease add an argument or use the option -h/--help for help\n")
     elif sys_args[0] == "-h" or sys_args[0] == "--help":
         print(f"""{bcolors.LightBlue}
     *********************************
