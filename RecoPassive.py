@@ -28,7 +28,7 @@ class bcolors:
 
 def whois(domain, sys_args, len_sys_args, domain_split):
     print("Whois in progress .....")
-    os.system('whois '+domain+' > '+directory_domain+'/whois_'+domain_split+'.txt')
+    os.system('whois '+domain+' -H > '+directory_domain+'/whois_'+domain_split+'.txt')
     if len_sys_args >= 1:
         print("Whois Done !")
         chooseOptions(domain, sys_args, len_sys_args, domain_split)
